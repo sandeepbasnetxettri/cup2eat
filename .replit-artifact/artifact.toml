@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "CUP2EAT"
+description = "A responsive brand website for CUP2EAT, showcasing edible cups, sustainability, product options, and direct customer inquiries."
+version = "1.0.0"
+id = "artifacts/cup2eat"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25564
+
+[services.development]
+run = "pnpm --filter @workspace/cup2eat run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/cup2eat", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/cup2eat/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25564"
+BASE_PATH = "/"
